@@ -1,0 +1,64 @@
+@use 'variables' as v;
+
+.title-header {
+  color: v.$teal;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.container {
+  align-items: center;
+  background-color: v.$body-background;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-top: 150px;
+  max-height: 70%;
+}
+
+.profile-info {
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  width: 600px;
+}
+
+.profile-header {
+  color: v.$teal;
+  font-size: 18px;
+  margin: 0;
+  padding: 0px 50px 5px 0px;
+}
+
+.profile-field {
+  background-color: v.$white;
+  color: v.$teal;
+  margin: 0;
+  padding: 5px;
+  outline: none;
+  border-style: none;
+}
+
+.button-area {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.edit-profile-button {
+  background-color: v.$nav-font;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: v.$teal;
+  }
+}
