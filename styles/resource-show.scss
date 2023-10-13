@@ -1,0 +1,292 @@
+@use 'variables' as v;
+
+.resource-page {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 200px;
+  padding: 20px;
+  gap: 50px;
+
+  .left-section {
+    flex: 1;
+    margin-left: 100px;
+
+    img {
+      border-radius: 50%;
+      height: 200px;
+      margin-right: 10px;
+      width: 200px;
+    }
+
+    .resource-title {
+      color: v.$teal;
+      margin: 15px 0px;
+    }
+
+    .detail-title {
+      color: v.$nav-font;
+      font-weight: bold;
+    }
+
+    .resource-description {
+      color: v.$teal;
+      margin: 15px 0px;
+      text-align: justify;
+    }
+
+    .resource-category {
+      color: v.$nav-font;
+      font-weight: 600;
+      font-size: 18px;
+      margin: 0px;
+    }
+
+    .created-on {
+      color: dimgray;
+      display: flex;
+      flex-direction: row;
+      text-align: right;
+      justify-self: flex-end;
+      gap: 4px;
+    }
+
+    .button-date {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-top: 5px;
+
+      .visit-button {
+        background-color: v.$nav-font;
+        border-radius: 5px;
+        border: none;
+        color: v.$white;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .visit-button a {
+        color: v.$white;
+        text-decoration: none;
+      }
+
+      .visit-button:hover {
+        background-color: v.$teal;
+        cursor: pointer;
+      }
+    }
+  }
+
+    .rating-category {
+      display: flex;
+      flex-direction: row;
+      padding-top: 20px;
+
+      .average-rating {
+        display: flex;
+        font-size: 16px;
+        color: v.$teal;
+
+        .star-container {
+          align-items: center;
+          display: flex;
+
+          .fa-star {
+            color: v.$gray;
+            font-size: 20px;
+            margin-right: 5px;
+          }
+
+          .fa-star.active {
+            color: gold;
+          }
+        }
+      }
+    }
+
+  .right-section {
+    flex: 1;
+    margin-right: 100px;
+
+    #commentForm {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      textarea {
+        background-color: inherit;
+        border: none;
+        color: v.$teal;
+        border-bottom: 3px solid dimgray;
+        margin-bottom: 20px;
+        outline: none;
+      }
+
+      button {
+        background-color: v.$nav-font;
+        border-radius: 5px;
+        border: none;
+        color: v.$white;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background-color: v.$teal;
+        cursor: pointer;
+      }
+    }
+
+    #ratings {
+      color:v.$teal;
+    }
+
+    .rating-like-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      #ratingForm {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .rating {
+          direction: ltr;
+          margin: 0px 20px 0px 0px;
+          text-align: center;
+          unicode-bidi: bidi-override;
+          border-style: none;
+          outline: none;
+          border-radius: 5px;
+          padding: 0px 10px;
+        }
+
+        .rating-option {
+          text-align: left;
+        }
+
+        .rating input {
+          display: none;
+        }
+
+        .rating label {
+          color: v.$gray;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 20px;
+          padding: 5px;
+        }
+
+        .rating label::before {
+          content: "\2605"; /* Unicode character for a star */
+        }
+
+        .rating input:checked+label {
+          color: gold;
+        }
+
+        button {
+          background-color: v.$nav-font;
+          border-radius: 5px;
+          border: none;
+          color: v.$white;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 16px;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          transition: 0.3s;
+        }
+
+        button:hover {
+          background-color: v.$teal;
+          cursor: pointer;
+        }
+      }
+
+      #likeForm {
+         display: flex;
+         justify-content: flex-end;
+
+        .heart-button {
+          background: none;
+          border: none;
+          color: v.$gray; /* Initial color */
+          cursor: pointer;
+          font-size: 24px;
+          transition: color 0.3s; /* Add a smooth transition for color change */
+
+          &:hover {
+            color: v.$likes-color; /* Color on hover */
+          }
+
+          &.clicked {
+            color: v.$likes-color; /* Color when clicked */
+          }
+        }
+      }
+    }
+
+    .rating-strong {
+      font-weight: bold;
+    }
+
+    ul.comments-container {
+      list-style: none;
+      margin-top: 50px;
+      padding: 0;
+
+      .comment-container {
+        color: v.$teal;
+        align-items: center;
+        background-color: v.$white;
+        border-radius: 5px;
+        border: 1px solid v.$teal;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        padding: 5px;
+
+        .user-image {
+          border-radius: 50%;
+          height: 40px;
+          margin-right: 10px;
+          width: 40px;
+        }
+
+        p {
+          flex: 1;
+          margin: 0px;
+        }
+      }
+
+      .comment-date {
+        color: v.$gray;
+        margin-top: 5px;
+      }
+    }
+
+    ul.ratings {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
