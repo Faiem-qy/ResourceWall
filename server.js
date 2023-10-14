@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.json());
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -28,8 +29,8 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
+const userApiRoutes = require('./routes/apis/users-api');
+const widgetApiRoutes = require('./routes/apis/widgets-api');
 const usersRoutes = require('./routes/users');
 
 // Mount all resource routes
