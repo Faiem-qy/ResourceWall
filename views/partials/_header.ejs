@@ -37,13 +37,13 @@
 
 <body>
   <nav>
-    <section class="nav-left">
+    <section class="nav-right">
       <a href="/resources" class="nav-link">Home</a>
       <a href="/resources/new" class="nav-link">Create New</a>
       <a href="/users/<%= userId %>/my-resources" class="nav-link">My Resources</a>
       <a href="/users/<%= userId %>" class="nav-link">Profile</a>
     </section>
-    <section class="nav-right">
+    <section class="nav-left">
       <form class="search-form" method="GET" action="/api/resources/search">
         <input type="text" placeholder="Search" name="q">
         <button type="submit" id="nav-button">
