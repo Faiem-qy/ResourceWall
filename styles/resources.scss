@@ -97,5 +97,37 @@
   display: flex;
 }
 
+.button-edition {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 5px;
+
+  .edit-button {
+    background-color: v.$nav-font;
+    border-radius: 5px;
+    border: none;
+    color: v.$white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .edit-button a {
+    color: v.$white;
+    text-decoration: none;
+  }
+
+  .edit-button:hover {
+    background-color: v.$teal;
+    cursor: pointer;
+  }
+}
+
 
 
