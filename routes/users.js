@@ -31,18 +31,26 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.get('/:id/edit', (req, res) => {
+  const userId = req.params.id;
+  getOneUser(userId)
+    .then(user => {
+      const templateVars = {
+        userId,
+        user
+      };
+      console.log(user);
+      res.render('users-edit', templateVars);
+    })
+    .catch(error => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 router.post('/:userId', (req, res) => {
   const userId = req.params.userId;
-  const user = {
-    "first_name": "Lorie",
-    "last_name": "Saladine",
-    "email": "lorie@mail.com",
-    "password": "1",
-    "profile_picture": "https://images.pexels.com/photos/2853198/pexels-photo-2853198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "handle": "leSalad",
-    "bio": "ah word"
-  };
-  console.log(user);
+  const user = req.body;
+  console.log(req.body);
 
   updateUserProfile(userId, user)
     .then(user => {
