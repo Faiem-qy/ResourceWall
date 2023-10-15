@@ -1,6 +1,6 @@
 @use 'variables' as v;
 
-nav {
+.main-nav {
   background-color: v.$white;
   display: flex;
   justify-content: space-between;
@@ -10,7 +10,8 @@ nav {
   height: 100px;
   padding: 50px;
   z-index: 1;
-  box-shadow: 0px 5px 25px 0px rgba(85, 121, 235, 0.25);
+  flex-direction: row-reverse;
+
 }
 
 .nav-left {
@@ -24,7 +25,7 @@ nav {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 80px;
   justify-content: flex-end;
 }
 
@@ -35,6 +36,10 @@ nav {
   text-transform: uppercase;
   text-decoration: none;
   transition: 0.3s;
+}
+
+.nav-left a:hover {
+  color: v.$teal;
 }
 
 .nav-link:hover {
@@ -79,3 +84,5 @@ nav {
   cursor: pointer;
   background-color: v.$teal;
 }
+
+
