@@ -16,6 +16,11 @@
   width: 90%;
 }
 
+.my-resources {
+margin-bottom: 0;
+
+}
+
 .resource-card-link {
   text-decoration: none;
   flex-basis: 25%;
@@ -104,34 +109,28 @@
   display: flex;
 }
 
-.button-edition {
+.button-area-resource {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding-top: 5px;
+  justify-content: center;
+  padding-top: 10px;
 
-  .edit-button {
-    background-color: v.$nav-font;
-    border-radius: 5px;
-    border: none;
-    color: v.$white;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: 0.3s;
-  }
+}
 
-  .edit-button a {
-    color: v.$white;
-    text-decoration: none;
-  }
+.edit-resource-button {
+  background-color: v.$nav-font;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-bottom: 50px;
 
-  .edit-button:hover {
+  &:hover {
     background-color: v.$teal;
-    cursor: pointer;
   }
 }

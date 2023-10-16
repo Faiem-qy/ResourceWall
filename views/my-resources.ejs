@@ -1,52 +1,62 @@
-
 <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/resources.js"></script>
-  <script src="/scripts/my-resources.js"></script>
+<script defer src="/scripts/resources.js"></script>
+<script src="/scripts/my-resources.js"></script>
+<link rel="stylesheet" href="/styles/categories.css" />
 
-  <%- include('partials/_header.ejs') %>
-        <section class="resources-main">
-          <section id="my-resources">
-            <% resources.forEach(resource=> { %>
-              <a href="/resources/<%= resource.id %>" class="resource-card-link">
-                    <div class="resource-card">
-                      <div class="card-content">
-                        <div class="resource-card-title">
-                          <%= resource.title %>
-                        </div>
-                        <img src="<%= resource.thumbnail_img %>" alt="thumbnail image" class="thumbnail_img" />
-                      </div>
-                      <div class="category">
-                        <%= resource.category_name %>
-                      </div>
-                      <div class="rating-category">
-                        <% if (resource.avg_rating) { %>
-                          <% if (resource.avg_rating==='5' ) { %>
-                            <%- include("../public/docs/5 stars.svg") %>
-                          <% } else if (resource.avg_rating==='4' ) { %>
-                            <%- include("../public/docs/4 stars.svg") %>
-                          <% } else if (resource.avg_rating==='3' ) { %>
-                            <%- include("../public/docs/3 stars.svg") %>
-                          <% } else if (resource.avg_rating==='2' ) { %>
+<%- include('partials/_header.ejs') %>
+  <h1 class="title-header">My Resources</h1>
+  <div class="cat">
+
+    <ul class="categories">
+
+      <li><a href="/categories">All</a></li>
+      <li><a href="/categories/html">HTML</a></li>
+      <li><a href="/categories/css">CSS</a></li>
+      <li><a href="/categories/javascript">Javascript</a></li>
+      <li><a href="/categories/react">React</a></li>
+      <li><a href="/categories/node">Node</a></li>
+
+    </ul>
+  </div>
+  <section class="resources-main my-resources">
+    <% resources.forEach(resource=> { %>
+      <div class="resource-edit-button">
+        <a href="/resources/<%= resource.id %>" class="resource-card-link">
+          <div class="resource-card">
+            <div class="card-content">
+              <div class="resource-card-title">
+                <%= resource.title %>
+              </div>
+              <img src="<%= resource.thumbnail_img %>" alt="thumbnail image" class="thumbnail_img" />
+            </div>
+            <div class="category">
+              <%= resource.category_name %>
+            </div>
+            <div class="rating-category">
+              <% if (resource.avg_rating) { %>
+                <% if (resource.avg_rating==='5' ) { %>
+                  <%- include("../public/docs/5 stars.svg") %>
+                    <% } else if (resource.avg_rating==='4' ) { %>
+                      <%- include("../public/docs/4 stars.svg") %>
+                        <% } else if (resource.avg_rating==='3' ) { %>
+                          <%- include("../public/docs/3 stars.svg") %>
+                            <% } else if (resource.avg_rating==='2' ) { %>
                               <%- include("../public/docs/2 stars.svg") %>
-                          <% } else if (resource.avg_rating==='1' ) { %>
-                              <%- include("../public/docs/1 star.svg") %>
-                          <% }
-                          } else { %>
-                            <div class="avg-rating">No Ratings</div>
-                        <% } %>
-                      </div>
-                    </div>
-              </a>
-                  <div class="button-edition">
-                    <button class="edit-button">
-                      <a target="_blank" href="/resources/<%= resource.id %>">Edit</a>
-                    </button>
-                  </div>
+                                <% } else if (resource.avg_rating==='1' ) { %>
+                                  <%- include("../public/docs/1 star.svg") %>
+                                    <% } } else { %>
+                                      <div class="avg-rating">No Ratings</div>
+                                      <% } %>
+            </div>
+          </div>
+        </a>
+        <div class="button-area-resource">
+          <a href="/resources/<%= resource.id %>/edit"><button class="edit-resource-button">Edit Resource</button></a>
+        </div>
+      </div>
+    <% }); %>
+  </section>
 
-            <% }); %>
 
-          </section>
-      </main>
-</body>
 
-</html>
+

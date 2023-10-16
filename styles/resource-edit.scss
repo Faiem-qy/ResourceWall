@@ -2,51 +2,59 @@
 
 .title-header {
   color: v.$green;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
 }
 
 .container {
   align-items: center;
-  background-color: v.$body-background;
   display: flex;
   flex-direction: column;
   justify-content: left;
   margin-top: 150px;
-  max-height: 70%;
+  text-align: left;
 }
 
-.profile-info {
-  align-items: flex-start;
-  flex-direction: row;
-  justify-content: center;
+.edit-resource {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 0;
+}
+
+.edit-resource-container {
+  margin: 0;
   width: 600px;
 }
 
-.profile-header {
-  color: v.$teal;
+.resource-header {
+  color: v.$green;
   font-size: 18px;
   margin: 0;
-  padding: 0px 50px 5px 0px;
+  padding: 0px 0px 5px 0px;
 }
 
-.profile-field {
-  background-color: v.$white;
-  color: v.$teal;
+.resource-info {
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.resource-field {
+  color: v.$green;
   margin: 0;
   padding: 5px;
   outline: none;
   border-style: none;
 }
 
-.button-area {
+.button-area-resource {
   display: flex;
   justify-content: flex-end;
   padding-top: 10px;
   padding-right: 155px;
 }
 
-.edit-profile-button {
+.edit-resource-button {
   background-color: v.$nav-font;
   border-radius: 5px;
   border: none;
