@@ -1,48 +1,49 @@
 
 <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/resources.js"></script> -->
+  <script defer src="/scripts/resources.js"></script>
   <script src="/scripts/my-resources.js"></script>
 
   <%- include('partials/_header.ejs') %>
         <section class="resources-main">
           <section id="my-resources">
             <% resources.forEach(resource=> { %>
-              <% const matchingCategory=categories.find(category=> category.id === resource.id); %>
-                <% const matchingAvgRating=avgRatings.find(avgRating=> avgRating.id === resource.id); %>
-                  <a href="/resources/<%= resource.id %>" class="resource-card-link">
+              <a href="/resources/<%= resource.id %>" class="resource-card-link">
                     <div class="resource-card">
                       <div class="card-content">
                         <div class="resource-card-title">
                           <%= resource.title %>
                         </div>
-                        <img src="<%= resource.thumbnail_url %>" alt="thumbnail image" class="thumbnail_img" />
+                        <img src="<%= resource.thumbnail_img %>" alt="thumbnail image" class="thumbnail_img" />
                       </div>
                       <div class="category">
-                        <%= matchingCategory.category_topic %>
+                        <%= resource.category_name %>
                       </div>
-                      <% if (matchingAvgRating.avg_rating) { %>
-                        <% if (matchingAvgRating.avg_rating==='5' ) { %>
-                          <img src="/docs/5 stars.svg" />
-                          <% } else if (matchingAvgRating.avg_rating==='4' ) { %>
-                            <img src="/docs/4 stars.svg" />
-                            <% } else if (matchingAvgRating.avg_rating==='3' ) { %>
-                              <img src="/docs/3 stars.svg" />
-                              <% } else if (matchingAvgRating.avg_rating==='2' ) { %>
-                                <img src="/docs/2 stars.svg" />
-                                <% } else if (matchingAvgRating.avg_rating==='1' ) { %>
-                                  <img src="/docs/1 star.svg" />
-
-                                  <% } } else { %>
-                                    <div class="avg-rating">No Ratings Yet</div>
-                                    <% } %>
+                      <div class="rating-category">
+                        <% if (resource.avg_rating) { %>
+                          <% if (resource.avg_rating==='5' ) { %>
+                            <%- include("../public/docs/5 stars.svg") %>
+                          <% } else if (resource.avg_rating==='4' ) { %>
+                            <%- include("../public/docs/4 stars.svg") %>
+                          <% } else if (resource.avg_rating==='3' ) { %>
+                            <%- include("../public/docs/3 stars.svg") %>
+                          <% } else if (resource.avg_rating==='2' ) { %>
+                              <%- include("../public/docs/2 stars.svg") %>
+                          <% } else if (resource.avg_rating==='1' ) { %>
+                              <%- include("../public/docs/1 star.svg") %>
+                          <% }
+                          } else { %>
+                            <div class="avg-rating">No Ratings</div>
+                        <% } %>
+                      </div>
                     </div>
-                  </a>
+              </a>
                   <div class="button-edition">
                     <button class="edit-button">
                       <a target="_blank" href="/resources/<%= resource.id %>">Edit</a>
                     </button>
+                  </div>
 
-                  <% }); %>
+            <% }); %>
 
           </section>
       </main>

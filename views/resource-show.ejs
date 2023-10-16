@@ -1,5 +1,5 @@
 <!-- <head>
-  <title>Resource - <%= resource[0].title %>
+  <title>Resource - <%= resource.title %>
   </title>
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,55 +14,51 @@
   <%- include('partials/_header.ejs') %>
       <main class="resource-page">
         <div class="left-section">
-          <img src="<%= resource[0].thumbnail_url %>" alt="Resource Image">
+          <img src="<%= resource.thumbnail %>" alt="Resource Image"/>
           <h1 class="resource-title">
-            <%= resource[0].title %>
+            <%= resource.title %>
           </h1>
           <p class="resource-category">
-            <%= category[0].topic %>
+            <%= resource.category_name %>
           </p>
           <p class="resource-description">
-            <%= resource[0].description %>
+            <%= resource.description %>
           </p>
           <div class="button-date">
             <button class="visit-button">
-              <a target="_blank" href="<%= resource[0].resource_url %>">Visit</a>
+              <a target="_blank" href="<%= resource.url %>">Visit</a>
             </button>
-
-            <span class="created-on">
-              <span>Created: </span>
-              <span id="formattedDate">
-                 <%= resource[0].created_on %>
-              </span>
-            </span>
 
           </div>
           <div class="rating-category">
-            <% if (avgRating && avgRating[0] && avgRating[0].avg_rating) { %>
-              <div class="average-rating" data-rating="<%= avgRating[0].avg_rating %>">
-                <div class="star-container">
-                  <i class="fas fa-star <% if (avgRating[0].avg_rating >= 1) { %>active<% } %>"></i>
-                  <i class="fas fa-star <% if (avgRating[0].avg_rating >= 2) { %>active<% } %>"></i>
-                  <i class="fas fa-star <% if (avgRating[0].avg_rating >= 3) { %>active<% } %>"></i>
-                  <i class="fas fa-star <% if (avgRating[0].avg_rating >= 4) { %>active<% } %>"></i>
-                  <i class="fas fa-star <% if (avgRating[0].avg_rating === 5) { %>active<% } %>"></i>
-                </div>
-              </div>
-              <% } else { %>
-                <span class="average-rating">No Rating</span>
-                <% } %>
+            <% if (resource.avg_rating) { %>
+              <% if (resource.avg_rating==='5' ) { %>
+                <%- include("../public/docs/5 stars.svg") %>
+              <% } else if (resource.avg_rating==='4' ) { %>
+                <%- include("../public/docs/4 stars.svg") %>
+              <% } else if (resource.avg_rating==='3' ) { %>
+                <%- include("../public/docs/3 stars.svg") %>
+              <% } else if (resource.avg_rating==='2' ) { %>
+                  <%- include("../public/docs/2 stars.svg") %>
+              <% } else if (resource.avg_rating==='1' ) { %>
+                  <%- include("../public/docs/1 star.svg") %>
+              <% }
+              } else { %>
+                <div class="avg-rating">No Ratings</div>
+            <% } %>
           </div>
         </div>
 
         <div class="right-section">
-          <form id="commentForm" action="/api/comments?resourceId=<%= resourceId %>" method="POST">
+          
+          <form id="commentForm" action="/api/comments?resourceId=<%= id %>" method="POST">
             <label for="comment"></label>
             <textarea id="comment" name="comment" placeholder="Enter your comments here..." required></textarea>
             <button type="submit">Add Comment</button>
           </form>
 
           <div class="rating-like-form">
-            <form id="ratingForm" class="dropdown-menu" action="/api/ratings?resourceId=<%= resourceId %>"
+            <form id="ratingForm" class="dropdown-menu" action="/api/ratings?resourceId=<%= id %>"
               method="POST">
 
               <select name="rating" class="rating">
@@ -77,36 +73,32 @@
               <button type="submit">Add Rating</button>
             </form>
 
-            <form id="likeForm" action="/api/likes?resourceId=<%= resourceId %>" method="POST">
-              <button type="submit" class="heart-button <%= likedByCurrentUser ? 'clicked' : '' %>" id="heartButton">
-                <i class="fas fa-heart"></i>
-              </button>
+            <form id="likeForm" action="/api/likes?resourceId=<%= id %>" method="POST">
             </form>
-
           </div>
 
           <p id="ratings">Your rating is <span class="rating-strong">
-              <%= ratings[ratings.length - 1].rating %>
+              <%= resource.avg_rating %>
             </span> for <span class="rating-strong">
-              <%= resource[0].title %>
-            </span></p>
+              <%= resource.title %>
+            </span>
+          </p>
+
           <ul class="comments-container">
-            <% details.forEach(detail=> { %>
-              <% if (detail.comment) { %>
+              <% if (resource.comment_text) { %>
                 <li class="comment-container">
-                  <img src="<%= user.profile_image_url %>" class="user-image" alt="User Image">
+                  <img src="<%= resource.profile_picture %>" class="user-image" alt="User Image" style="height: 60px; width: 60px;">
                   <p>
-                    <%= detail.comment %>
+                    <%= resource.comment_text %>
                   </p>
                 </li>
-                <p class="comment-date" data-created-at="<%= detail.created_at %>"></p>
-                <% } else { %>
-                  <li>No Comments</li>
-                  <% } %>
-                    <% }); %>
+              <% } else { %>
+                <li>No Comments</li>
+              <% } %>
           </ul>
+
+
         </div>
       </main>
 </body>
 
-</html>
