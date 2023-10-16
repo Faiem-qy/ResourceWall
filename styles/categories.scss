@@ -1,0 +1,45 @@
+// categories
+.cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-top: 25px;
+}
+
+.cat li a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+  text-transform: uppercase;
+  background-color: #4c5265;
+  border-radius: 5px;
+  text-align: center;
+  width: 200px;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.categories {
+  list-style: none;
+}
+
+.categories li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.categories li a {
+ transition: all 0.3s ease 0s;
+ background-color: #4c5265;
+ width: 200px;
+ text-decoration: none;
+ box-sizing: border-box;
+ padding: 10px 20px 10px 20px;
+}
+
+.categories li a:hover {
+  color:#FFDD63;
+ }
