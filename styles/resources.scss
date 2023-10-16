@@ -43,10 +43,7 @@
 .card-content {
   width: inherit;;
   margin-bottom: 0px;
-  // height: 200px;
-  // position: relative;
-  // overflow: hidden;
-  // display: block;
+
 }
 
 .thumbnail_img {
@@ -67,7 +64,7 @@
   background-color: v.$white-opacity;
   color: v.$green;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
   padding: 10px 10px;
   z-index: 1;
@@ -78,9 +75,9 @@
   color: v.$white;
   background-color: v.$nav-font;
   text-align: center;
-  padding: 8px 0px;
+  padding: 18px 0px;
   margin-bottom: 10px;
-
+  font-size: 120%;
 }
 
 .avg-rating {
