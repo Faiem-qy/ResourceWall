@@ -93,9 +93,41 @@ const categoryBtnResourcesSearch = (category_name) => {
     });
 };
 
+
+const getResourceDetails = (id) => {
+  const queryString = {
+    text: `SELECT
+    resources.id AS id,
+    resources.owner_id AS user_id,
+    resources.title AS title,
+    resources.description AS description,
+    resources.thumbnail_img AS thumbnail,
+    resources.url As url,
+    categories.category_name AS category_name,
+    comments.comment_text AS comment_text,
+    users.profile_picture AS profile_picture,
+    (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
+    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
+    FROM resources 
+    JOIN categories ON resources.category_id = categories.id
+    JOIN users ON users.id = resources.owner_id
+    LEFT JOIN comments ON comments.resource_id = resources.id
+    LEFT JOIN ratings ON ratings.resource_id = resources.id
+    WHERE resources.id = $1
+    GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name, comments.comment_text, users.profile_picture;`,
+    values: [id]
+  };
+  return db.query(queryString)
+    .then(data => {
+      return data.rows;
+    });
+};
+
+
 module.exports = {
   getAllResources,
   insertNewResource,
   getMyResources,
-  categoryBtnResourcesSearch
+  categoryBtnResourcesSearch,
+  getResourceDetails
 };
