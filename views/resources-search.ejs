@@ -3,41 +3,38 @@
       <main>
         <h1 class="title-header">Search Results</h1>
         <section class="resources-main">
-          <% searchResults.forEach(resource=> { %>
-            <% const matchingCategory=searchResultsCategories.find(category=> category.id === resource.id); %>
-              <% const matchingAvgRating=searchResultsAverageRatings.find(avgRating=> avgRating.id === resource.id); %>
-                <a href="/resources/<%= resource.id %>" class="resource-card-link">
-                  <div class="resource-card">
-                    <div class="card-content">
-                      <div class="resource-card-title">
-                        <%= resource.title %>
-                      </div>
-                      <img src="<%= resource.thumbnail_url %>" alt="thumbnail image" class="thumbnail_img" />
+          <% queryResult.forEach(resource=> { %>
+            <a href="/resources/<%= resource.id %>" class="resource-card-link">
+                <div class="resource-card">
+                  <div class="card-content">
+                    <div class="resource-card-title">
+                       <%= resource.title %>
                     </div>
-                    <div class="category">
-                      <%= matchingCategory.category_topic %>
-                    </div>
-                    <% if (matchingAvgRating) { %>
-
-                      <% if (matchingAvgRating.avg_rating===5 ) { %>
-                        <img src="/docs/5 stars.svg" />
-                        <% } else if (matchingAvgRating.avg_rating===4 ) { %>
-                          <img src="/docs/4 stars.svg" />
-                          <% } else if (matchingAvgRating.avg_rating===3 ) { %>
-                            <img src="/docs/3 stars.svg" />
-                            <% } else if (matchingAvgRating.avg_rating===2 ) { %>
-                              <img src="/docs/2 stars.svg" />
-                              <% } else if (matchingAvgRating.avg_rating===1 ) { %>
-                                <img src="/docs/1 star.svg" />
-
-                                <% } } else { %>
-                                  <div class="avg-rating">No Ratings Yet</div>
-                                  <% } %>
+                    <img src="<%= resource.thumbnail_img %>" alt="thumbnail image" class="thumbnail_img" />
                   </div>
-                </a>
-                <% }); %>
+                  <div class="category">
+                    <%= resource.category_name %>
+                  </div>
+                  <div class="rating-category">
+                      <% if (resource.avg_rating) { %>
+                        <% if (resource.avg_rating==='5' ) { %>
+                          <%- include("../public/docs/5 stars.svg") %>
+                        <% } else if (resource.avg_rating==='4' ) { %>
+                          <%- include("../public/docs/4 stars.svg") %>
+                        <% } else if (resource.avg_rating==='3' ) { %>
+                          <%- include("../public/docs/3 stars.svg") %>
+                        <% } else if (resource.avg_rating==='2' ) { %>
+                            <%- include("../public/docs/2 stars.svg") %>
+                        <% } else if (resource.avg_rating==='1' ) { %>
+                            <%- include("../public/docs/1 star.svg") %>
+                        <% }
+                        } else { %>
+                          <div class="avg-rating">No Ratings</div>
+                    <% } %>
+                  </div>
+                </div>
+            </a>
+          <% }); %>
         </section>
       </main>
-</body>
 
-</html>

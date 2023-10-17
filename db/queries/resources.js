@@ -93,6 +93,39 @@ const categoryBtnResourcesSearch = (category_name) => {
     });
 };
 
+const searchBarResources = (searchWord) => {
+  const searchString = {
+    text: `
+    SELECT
+    resources.id AS id,
+    resources.owner_id AS owner_id,
+    resources.title AS title,
+    resources.description AS description,
+    resources.thumbnail_img AS thumbnail_img,
+    resources.url AS url,
+    categories.category_name AS category_name,
+    (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
+    (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
+    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
+    FROM resources 
+    JOIN categories ON resources.category_id = categories.id
+    LEFT JOIN comments ON comments.resource_id = resources.id
+    LEFT JOIN likes ON likes.resource_id = resources.id
+    LEFT JOIN ratings ON ratings.resource_id = resources.id
+    WHERE resources.title ILIKE $1
+    GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name`,
+    values: [`%${searchWord}%`]
+  };
+  return db.query(searchString)
+    .then(data => {
+      // console.log(data.rows)
+      return data.rows;
+    })
+    .catch(error => {
+      console.log(error.message); 
+    });
+};
+
 
 const getResourceDetails = (id) => {
   const queryString = {
@@ -129,5 +162,6 @@ module.exports = {
   insertNewResource,
   getMyResources,
   categoryBtnResourcesSearch,
-  getResourceDetails
+  getResourceDetails,
+  searchBarResources
 };

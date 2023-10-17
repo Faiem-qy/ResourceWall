@@ -15,7 +15,7 @@ router.get('/:id/my-resources', (req, res) => {
 
   getMyResources(userId)
     .then(resources => {
-      console.log(resources);
+      // console.log(resources);
 
       const templateVars = {
         userId,
@@ -37,10 +37,10 @@ router.get('/:id/edit', (req, res) => {
         userId,
         user
       };
-      console.log(user);
+      // console.log(user);
       res.render('users-edit', templateVars);
     })
-    .catch(error => {
+    .catch(err => {
       res.status(500).json({ error: err.message });
     });
 });
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
         userId,
         user
       };
-      console.log(user);
+      // console.log(user);
       res.render('users-show', templateVars);
     })
     .catch(error => {
@@ -66,11 +66,11 @@ router.get('/:id', (req, res) => {
 router.post('/:userId', (req, res) => {
   const userId = req.params.userId;
   const user = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   updateUserProfile(userId, user)
     .then(user => {
-      console.log(user);
+      // console.log(user);
       res.redirect(`/users/${userId}`);
     })
     .catch(err => {
