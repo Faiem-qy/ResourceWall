@@ -45,10 +45,6 @@ router.get('/:id/edit', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
-  res.render('users');
-});
-
 router.get('/:id', (req, res) => {
   const userId = req.params.id;
 
@@ -66,7 +62,6 @@ router.get('/:id', (req, res) => {
     });
 
 });
-
 
 router.post('/:userId', (req, res) => {
   const userId = req.params.userId;
