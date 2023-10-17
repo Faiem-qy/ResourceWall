@@ -16,7 +16,7 @@ router.get('/new', (req, res) => {
 
 //resources/:id - Show resource with that :id
 router.get('/:id', (req, res) => {
-  const id = 1;
+  const id = req.params.id;
 
   getResourceDetails(id)
     .then(resource => {
