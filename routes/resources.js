@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
       const templateVars = {
         id,
         resource: resource[0],
-        userId: resource.user_id
+        userId: resource[0].user_id
       };
       res.render("resource-show", templateVars);
     })
