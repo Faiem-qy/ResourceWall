@@ -109,9 +109,9 @@ const searchBarResources = (searchWord) => {
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
     FROM resources 
     JOIN categories ON resources.category_id = categories.id
+    JOIN ratings ON ratings.resource_id = resources.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
-    LEFT JOIN ratings ON ratings.resource_id = resources.id
     WHERE resources.title ILIKE $1 OR resources.description ILIKE $1
     GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name`,
     values: [`%${searchWord}%`]
