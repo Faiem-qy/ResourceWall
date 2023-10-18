@@ -52,7 +52,7 @@ router.get('/:id/edit', (req, res) => {
     .catch(err => {
       res.status(500).json({ error: err.message });
     });
-
+  
 });
 
 //resources/:id - Show resource with that :id
@@ -82,7 +82,7 @@ router.get('/', (req, res) => {
 
   getAllResources(userId)
     .then(resources => {
-      // console.log(resources);
+      console.log(resources);
 
       const templateVars = {
         userId,
@@ -131,7 +131,6 @@ router.post('/', (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 
 module.exports = router;
