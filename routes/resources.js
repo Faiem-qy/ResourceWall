@@ -16,14 +16,14 @@ router.get('/new', (req, res) => {
 
 router.get('/search', (req, res) => {
   const query = req.query.q;
-  
+
   searchBarResources(query)
   .then(queryResult => {
     console.log(queryResult);
     const userId = 1;// to edit later
 
     const templateVars = {
-      queryResult, 
+      queryResult,
       userId
     }
     res.render('resources-search', templateVars)
@@ -60,7 +60,7 @@ router.get('/', (req, res) => {
 
   getAllResources(userId)
     .then(resources => {
-      // console.log(resources);
+      console.log(resources);
 
       const templateVars = {
         userId,
@@ -89,7 +89,6 @@ router.post('/', (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 
 module.exports = router;
