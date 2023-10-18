@@ -112,7 +112,7 @@ const searchBarResources = (searchWord) => {
     JOIN ratings ON ratings.resource_id = resources.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
-    WHERE resources.title ILIKE $1 OR resources.description ILIKE $1
+    WHERE (resources.title ILIKE $1 OR resources.description ILIKE $1)
     GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name`,
     values: [`%${searchWord}%`]
   };
@@ -157,11 +157,31 @@ const getResourceDetails = (id) => {
 };
 
 
+const updateResource = (id, resource) => {
+  const updateString = {
+    text: `UPDATE resources 
+      SET owner_id = $1,
+      url = $2,
+      thumbnail_img = $3,
+      title = $4,
+      description = $5,
+      category_id = $6
+      WHERE id = $7
+      RETURNING *`,
+    values: [resource.owner_id, resource.url, resource.thumbnail_img, resource.title, resource.description, resource.category_id, id]
+  };
+  return db.query(updateString)
+    .then(data => {
+      return data.rows;
+    });
+};
+
 module.exports = {
   getAllResources,
   insertNewResource,
   getMyResources,
   categoryBtnResourcesSearch,
   getResourceDetails,
-  searchBarResources
+  searchBarResources,
+  updateResource
 };

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllResources, getResourceDetails, insertNewResource, searchBarResources } = require('../db/queries/resources');
+const { getAllResources, getResourceDetails, insertNewResource, searchBarResources, updateResource } = require('../db/queries/resources');
 const router = express.Router();
 
 //resources/new - Show New resource Page
@@ -37,12 +37,12 @@ router.get('/search', (req, res) => {
 // resources/:id/edit - resources edit
 router.get('/:id/edit', (req, res) => {
   const resourceId = req.params.id;
-
+  
   getResourceDetails(resourceId)
-    .then(resource => {
-
+  .then(resource => {
+    
       const templateVars = {
-        userId: resource.user_id,
+        userId: 1,// to edit -> hardcoded
         resourceId,
         resource
       };
@@ -50,8 +50,8 @@ router.get('/:id/edit', (req, res) => {
       res.render("resource-edit", templateVars);
     })
     .catch(err => {
-    res.status(500).json({ error: err.message });
-  })
+      res.status(500).json({ error: err.message });
+    });
 
 });
 
@@ -97,6 +97,24 @@ router.get('/', (req, res) => {
 });
 
 
+// Post to /resource/:id
+router.post('/:id', (req, res) => {
+  const resourceId = req.params.id;
+  const resourceToUpdate = req.body;
+
+  console.log(resourceToUpdate);
+
+  updateResource(resourceId, resourceToUpdate)
+    .then(resource => {
+      // console.log(resource);
+      const userId = resource.owner_id;
+
+      res.redirect(`/resources/${resourceId}`);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 // Post to /resources
 router.post('/', (req, res) => {

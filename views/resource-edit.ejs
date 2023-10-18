@@ -3,7 +3,13 @@
     <div class="resource-info">
       <h1 class="title-header">Edit Resource</h1>
       <div class="edit-resource-container"></div>
-      <form id="resourceEditForm" action="/resources/<%= resource.id %>" method="POST">
+      <form id="resourceEditForm" action="/resources/<%= resourceId %>" method="POST">
+        <label class="resource-header" for="title"></label>
+        <input 
+        type="hidden" 
+        name="owner_id" 
+        value="<%= userId %>" 
+        />
         <label class="resource-header" for="title">Title:</label>
         <input class="resource-field" 
         type="text" 
@@ -24,7 +30,7 @@
         class="resource-field" 
         type="text" 
         id="resource_url" 
-        name="resource_url" 
+        name="url" 
         placeholder="Resource URL"
         required><br>
         <label class="resource-header" for="thumbnail_url">Image URL:</label>
@@ -32,7 +38,7 @@
         class="resource-field" 
         type="text" 
         id="thumbnail_url" 
-        name="thumbnail_url" 
+        name="thumbnail_img" 
         placeholder="Image URL"
         required><br>
         <label class="resource-header" for="category_id">Choose a Category:</label>
