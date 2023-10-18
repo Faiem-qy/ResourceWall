@@ -14,23 +14,45 @@ router.get('/new', (req, res) => {
 
 });
 
+//resources/search - Search bar
 router.get('/search', (req, res) => {
   const query = req.query.q;
-  
-  searchBarResources(query)
-  .then(queryResult => {
-    console.log(queryResult);
-    const userId = 1;// to edit later
 
-    const templateVars = {
-      queryResult, 
-      userId
-    }
-    res.render('resources-search', templateVars)
+  searchBarResources(query)
+    .then(queryResult => {
+      console.log(queryResult);
+      const userId = 1;// to edit later
+
+      const templateVars = {
+        queryResult,
+        userId
+      };
+      res.render('resources-search', templateVars);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+// resources/:id/edit - resources edit
+router.get('/:id/edit', (req, res) => {
+  const resourceId = req.params.id;
+
+  getResourceDetails(resourceId)
+    .then(resource => {
+
+      const templateVars = {
+        userId: resource.user_id,
+        resourceId,
+        resource
+      };
+
+      res.render("resource-edit", templateVars);
+    })
+    .catch(err => {
+    res.status(500).json({ error: err.message });
   })
-  .catch(err => {
-    res.status(500).json({error: err.message})
-  })
+
 });
 
 //resources/:id - Show resource with that :id
@@ -73,6 +95,8 @@ router.get('/', (req, res) => {
     });
 
 });
+
+
 
 // Post to /resources
 router.post('/', (req, res) => {
