@@ -58,7 +58,7 @@
           </form>
 
           <div class="rating-like-form">
-            <form id="ratingForm" class="dropdown-menu" action="/api/ratings?resourceId=<%= id %>"
+            <form id="ratingForm" class="dropdown-menu" action="/resources/<%= id %>/rating"
               method="POST">
 
               <select name="rating" class="rating">

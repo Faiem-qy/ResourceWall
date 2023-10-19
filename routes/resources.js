@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllResources, getResourceDetails, insertNewResource, searchBarResources, updateResource, addRating, addComment } = require('../db/queries/resources');
+const { getAllResources, getResourceDetails, insertNewResource, searchBarResources, updateResource, insertRating, addComment } = require('../db/queries/resources');
 const router = express.Router();
 
 //resources/new - Show New resource Page
@@ -38,10 +38,10 @@ router.get('/search', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const resourceId = req.params.id;
   const userId = req.session.user_id;
-  
+
   getResourceDetails(resourceId)
-  .then(resource => {
-    
+    .then(resource => {
+
       const templateVars = {
         resourceId,
         resource,
@@ -53,17 +53,18 @@ router.get('/:id/edit', (req, res) => {
     .catch(err => {
       res.status(500).json({ error: err.message });
     });
-  
+
 });
 
 //resources/:id - Show resource with that :id
 router.get('/:id', (req, res) => {
+  ``;
   const id = req.params.id;
   const userId = req.session.user_id;
 
   getResourceDetails(id)
     .then(resource => {
-      console.log(resource[0])
+      console.log(resource[0]);
       const templateVars = {
         resource: resource[0],
         userId,
@@ -95,6 +96,29 @@ router.get('/', (req, res) => {
       res.status(500).json({ error: err.message });
     });
 
+});
+
+
+router.post('/:id/rating', (req, res) => {
+  console.log(req.body);
+
+  const userId = req.session.user_id;
+  const resourceId = req.params.id;
+  const rating = req.body.rating;
+
+  console.log('user:', userId);
+  console.log('resource id:', resourceId);
+  console.log('rating:', rating);
+
+
+
+  insertRating(userId, resourceId, rating)
+    .then(rating => {
+      res.redirect(`/resources/${resourceId}`);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 

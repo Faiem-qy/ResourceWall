@@ -122,7 +122,7 @@ const searchBarResources = (searchWord) => {
       return data.rows;
     })
     .catch(error => {
-      console.log(error.message); 
+      console.log(error.message);
     });
 };
 
@@ -176,6 +176,21 @@ const updateResource = (id, resource) => {
     });
 };
 
+const insertRating = (userId, resourceId, rating)=>{
+  const queryString = {
+    text: `
+    INSERT INTO ratings (user_id, resource_id, rating)
+    VALUES($1, $2, $3)
+    RETURNING *;`,
+    values: [userId, resourceId, rating]
+  };
+  return db.query(queryString)
+    .then(data => {
+      return data.rows;
+  });
+}
+
+
 module.exports = {
   getAllResources,
   insertNewResource,
@@ -183,5 +198,6 @@ module.exports = {
   categoryBtnResourcesSearch,
   getResourceDetails,
   searchBarResources,
-  updateResource
+  updateResource,
+  insertRating
 };
