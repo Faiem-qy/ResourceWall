@@ -21,7 +21,6 @@ router.get('/search', (req, res) => {
 
   searchBarResources(query)
     .then(queryResult => {
-      console.log(queryResult);
 
       const templateVars = {
         queryResult,
@@ -34,7 +33,7 @@ router.get('/search', (req, res) => {
     });
 });
 
-// resources/:id/edit - resources edit
+// resources/:id/edit - Resources edit
 router.get('/:id/edit', (req, res) => {
   const resourceId = req.params.id;
   const userId = req.session.user_id;
@@ -58,13 +57,11 @@ router.get('/:id/edit', (req, res) => {
 
 //resources/:id - Show resource with that :id
 router.get('/:id', (req, res) => {
-  ``;
   const id = req.params.id;
   const userId = req.session.user_id;
 
   getResourceDetails(id)
     .then(resource => {
-      console.log(resource[0]);
       const templateVars = {
         resource: resource[0],
         userId,
@@ -84,7 +81,6 @@ router.get('/', (req, res) => {
 
   getAllResources(userId)
     .then(resources => {
-      console.log(resources);
 
       const templateVars = {
         userId,
@@ -98,19 +94,14 @@ router.get('/', (req, res) => {
 
 });
 
+// ----POST-----
 
+//resources/:id/rating - Edit rating
 router.post('/:id/rating', (req, res) => {
-  console.log(req.body);
 
   const userId = req.session.user_id;
   const resourceId = req.params.id;
   const rating = req.body.rating;
-
-  console.log('user:', userId);
-  console.log('resource id:', resourceId);
-  console.log('rating:', rating);
-
-
 
   insertRating(userId, resourceId, rating)
     .then(rating => {
@@ -121,14 +112,11 @@ router.post('/:id/rating', (req, res) => {
     });
 });
 
-
-// Post to /resource/:id
+// Post to /resources/:id - Edit Resource
 router.post('/:id', (req, res) => {
   const resourceId = req.params.id;
   const resourceToUpdate = req.body;
   const userId = req.session.user_id;
-
-  console.log(resourceToUpdate);
 
   updateResource(resourceId, resourceToUpdate)
     .then(resource => {
@@ -139,7 +127,7 @@ router.post('/:id', (req, res) => {
     });
 });
 
-// Post to /resources
+// Post to /resources - Add New Resource
 router.post('/', (req, res) => {
   const resource = req.body;
   const userId = req.session.user_id;

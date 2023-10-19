@@ -58,7 +58,6 @@ app.use('/resources', resourcesRoutes);
 
 app.get('/login/:id', (req,res) =>{
   req.session.user_id = req.params.id;
-  console.log(req.session);
   res.redirect('/resources')
 })
 

@@ -118,14 +118,12 @@ const searchBarResources = (searchWord) => {
   };
   return db.query(searchString)
     .then(data => {
-      // console.log(data.rows)
       return data.rows;
     })
     .catch(error => {
       console.log(error.message);
     });
 };
-
 
 const getResourceDetails = (id) => {
   const queryString = {
@@ -155,7 +153,6 @@ const getResourceDetails = (id) => {
       return data.rows;
     });
 };
-
 
 const updateResource = (id, resource) => {
   const updateString = {
