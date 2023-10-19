@@ -22,6 +22,7 @@ form {
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-bottom: 0;
 
   label {
     font-weight: bold;
@@ -37,7 +38,6 @@ form {
     background-color: white;
     appearance: none;
     cursor: pointer;
-
     option.placeholder {
       color: #999;
     }
@@ -46,7 +46,7 @@ form {
   input,
   textarea {
     padding: 10px;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
@@ -54,7 +54,7 @@ form {
 
   button {
     padding: 10px;
-    background-color: #022a29;
+    background-color:  #4c5265;
     color: white;
     border: none;
     border-radius: 5px;
@@ -63,7 +63,7 @@ form {
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: #04b0aa;
+      background-color: #015c68;
     }
   }
 }

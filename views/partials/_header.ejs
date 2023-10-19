@@ -46,10 +46,10 @@
       <a href="/users/<%= userId %>/my-resources" class="nav-link">My Resources</a>
       <a href="/users/<%= userId %>" class="nav-link">Profile</a>
       <% if (!userId) { %>
-        <a href="/login/1" class="nav-link">Log In</a>
+        <a href="/login/1" class="nav-link-button">Log In</a>
       <% } else { %>
         <form class="rating" method="POST" action="/logout">
-          <button type="submit" class="nav-link">Logout</button>
+          <button type="submit" class="nav-link-button">Logout</button>
         </form>
       <% } %>
     </section>
