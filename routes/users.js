@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
       // console.log(user);
       res.render('users-show', templateVars);
     })
-    .catch(error => {
+    .catch(err => {
       res.status(500).json({ error: err.message });
     });
 
