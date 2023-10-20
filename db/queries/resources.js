@@ -179,7 +179,7 @@ const updateResource = (id, resource) => {
     });
 };
 
-const insertRating = (userId, resourceId, rating)=>{
+const insertRating = (userId, resourceId, rating) => {
   const queryString = {
     text: `
     INSERT INTO ratings (user_id, resource_id, rating)
@@ -190,8 +190,8 @@ const insertRating = (userId, resourceId, rating)=>{
   return db.query(queryString)
     .then(data => {
       return data.rows;
-  });
-}
+    });
+};
 
 const addComment = (userId, commentText, resourceId) => {
   const queryString = {
@@ -202,9 +202,37 @@ const addComment = (userId, commentText, resourceId) => {
     values: [userId, commentText, resourceId]
   };
   return db.query(queryString)
-  .then(data => {
-      console.log(data)
-      const row = data.rows[data.rows.length-1]
+    .then(data => {
+      console.log(data);
+      const row = data.rows[data.rows.length - 1];
+      return data.rows;
+    });
+};
+
+const increaseLikes = (userId, resourceId) => {
+  const queryString = {
+    text: `
+    INSERT INTO likes (user_id, resource_id)
+    VALUES($1, $2)
+    RETURNING *;`,
+    values: [userId, resourceId]
+  };
+  return db.query(queryString)
+    .then(data => {
+      return data.rows;
+    });
+};
+
+const decreaseLikes = (userId, resourceId) => {
+  const queryString = {
+    text: `
+    DELETE FROM likes
+    WHERE user_id = $1 AND resource_id = $2
+    RETURNING *;`,
+    values: [userId, resourceId]
+  };
+  return db.query(queryString)
+    .then(data => {
       return data.rows;
     });
 };
@@ -219,5 +247,7 @@ module.exports = {
   searchBarResources,
   updateResource,
   insertRating,
-  addComment
+  addComment,
+  increaseLikes,
+  decreaseLikes
 };
