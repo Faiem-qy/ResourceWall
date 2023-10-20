@@ -13,7 +13,7 @@ const getAllResources = () => {
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
-    FROM resources 
+    FROM resources
     JOIN categories ON resources.category_id = categories.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
@@ -38,7 +38,7 @@ const getMyResources = (id) => {
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
-    FROM resources 
+    FROM resources
     JOIN categories ON resources.category_id = categories.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
@@ -59,7 +59,7 @@ const insertNewResource = (resource) => {
     INSERT INTO resources (owner_id, url, thumbnail_img, title, description, category_id)
     VALUES($1, $2, $3, $4, $5, $6)
     RETURNING *;`,
-    values: [resource.owner_id, resource.url, resource.thumbnail_img, resource.title, resource.description, resource.category_id]
+    values: [resource.owner_id, resource.url, resource.thumbnail_img, resource.title, resource.description.trim(), resource.category_id]
   };
   return db.query(queryString)
     .then(data => {
@@ -79,7 +79,7 @@ const categoryBtnResourcesSearch = (category_name) => {
     categories.category_name,
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes
-    FROM resources 
+    FROM resources
     JOIN categories ON resources.category_id = categories.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
@@ -107,7 +107,7 @@ const searchBarResources = (searchWord) => {
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
-    FROM resources 
+    FROM resources
     JOIN categories ON resources.category_id = categories.id
     JOIN ratings ON ratings.resource_id = resources.id
     LEFT JOIN comments ON comments.resource_id = resources.id
@@ -140,7 +140,7 @@ const getResourceDetails = (id) => {
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating,
     ARRAY_AGG(comments.comment_text) AS comments,
     ARRAY_AGG(user_profiles.profile_picture) AS profile_comment
-    FROM resources 
+    FROM resources
     JOIN categories ON resources.category_id = categories.id
     JOIN users ON users.id = resources.owner_id
     LEFT JOIN comments ON comments.resource_id = resources.id
@@ -162,7 +162,7 @@ const getResourceDetails = (id) => {
 
 const updateResource = (id, resource) => {
   const updateString = {
-    text: `UPDATE resources 
+    text: `UPDATE resources
       SET owner_id = $1,
       url = $2,
       thumbnail_img = $3,
@@ -170,7 +170,7 @@ const updateResource = (id, resource) => {
       description = $5,
       category_id = $6
       WHERE id = $7
-      RETURNING *`,
+      RETURNING *;`,
     values: [resource.owner_id, resource.url, resource.thumbnail_img, resource.title, resource.description, resource.category_id, id]
   };
   return db.query(updateString)

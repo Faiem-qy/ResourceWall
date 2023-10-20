@@ -28,9 +28,7 @@
         placeholder="Resource Description"
         required
 
-      >
-      <%= resource.description %>
-      </textarea
+      ><%= resource.description.trim() %></textarea
       ><br />
       <label class="resource-header" for="resource_url">URL:</label>
       <input
@@ -56,14 +54,11 @@
         >Choose a Category:</label
       >
       <select id="category_id" name="category_id">
-        <option value="" selected disabled hidden class="placeholder">
-          Choose a Category
-        </option>
-        <option value="1">HTML</option>
-        <option value="2">CSS</option>
-        <option value="3">Javascript</option>
-        <option value="4">React</option>
-        <option value="5">Node</option>
+        <option value="1" <% if(resource.category_name == "HTML"){ %>selected <% } %>>HTML</option>
+        <option value="2"<% if(resource.category_name == "CSS"){ %>selected <% } %>>CSS</option>
+        <option value="3" <% if(resource.category_name == "Javascript"){ %>selected <% } %>>Javascript</option>
+        <option value="4" <% if(resource.category_name == "React"){ %>selected <% } %>>React</option>
+        <option value="5" <% if(resource.category_name == "Node"){ %>selected <% } %>>Node</option>
       </select>
       <div class="button-area-resource">
         <button class="edit-resource-button" type="submit">
