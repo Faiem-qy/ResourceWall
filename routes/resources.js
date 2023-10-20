@@ -38,7 +38,7 @@ router.get('/:id/edit', (req, res) => {
   const resourceId = req.params.id;
   const userId = req.session.user_id;
 
-  getResourceDetails(resourceId)
+  getResourceDetails(resourceId, userId)
     .then(resource => {
 console.log(resource[0]);
       const templateVars = {
@@ -56,16 +56,15 @@ console.log(resource[0]);
 
 //resources/:id - Show resource with that :id
 router.get('/:id', (req, res) => {
-  const id = req.params.id;
+  const resourceId = req.params.id;
   const userId = req.session.user_id;
 
-  getResourceDetails(id)
+  getResourceDetails(resourceId, userId)
     .then(resource => {
-      console.log(resource);
       const templateVars = {
         resource,
         userId,
-        id
+        resourceId
       };
       res.render("resource-show", templateVars);
     })
@@ -112,6 +111,20 @@ router.post('/:id/unlike', (req, res) => {
 });
 
 // POST - Like
+router.post('/:id/unlike', (req, res) => {
+  const userId = req.session.user_id;
+  const resourceId = req.params.id;
+
+  decreaseLikes(userId, resourceId)
+    .then(unlike => {
+      console.log("UNLIKKE*****", unlike);
+      res.redirect(`/users/${userId}/my-resources`);
+    })
+    .catch(err => {
+      console.log({ error: err.message });
+    });
+});
+
 router.post('/:id/like', (req, res) => {
   const userId = req.session.user_id;
   const resourceId = req.params.id;
@@ -125,9 +138,6 @@ router.post('/:id/like', (req, res) => {
       console.log({ error: err.message });
     });
 });
-
-
-
 
 // Post to /resources/:id/comment
 router.post('/:id/comment', (req, res) => {
@@ -191,4 +201,4 @@ router.post('/', (req, res) => {
 });
 
 
-module.exports = router;
+module.exports = router; 

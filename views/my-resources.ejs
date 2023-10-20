@@ -61,6 +61,40 @@
         <div class="button-area-resource">
           <a href="/resources/<%= resource.id %>/edit"><button class="edit-resource-button">Edit Resource</button></a>
           <button class="edit-resource-button">Delete Resource</button>
+
+          <% if (resource.liked ) { %>
+            <form
+              id="likeForm"
+              action="/resources/<%= resource.id %>/unlike"
+              method="POST"
+            >
+              <input type="hidden" name="user_id" value="<%= resource.user_id %>" />
+              <button
+                type="submit"
+                class="heart-button"
+                id="heartButton"
+                style="color: <%= resource.liked ? 'red' : 'white' %>"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </form>
+            <% } else { %>
+            <form
+              id="likeForm"
+              action="/resources/<%= resource.id %>/like"
+              method="POST"
+            >
+              <input type="hidden" name="user_id" value="<%= resource.user_id %>" />
+              <button
+                type="submit"
+                class="heart-button"
+                id="heartButton"
+                style="color: <%= resource.liked ? 'red' : 'white' %>"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </form>
+            <% } %>
         </div>
         
       </div>

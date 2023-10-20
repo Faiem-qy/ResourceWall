@@ -1,7 +1,8 @@
 const db = require('../connection');
 
-const getAllResources = () => {
-  return db.query(`
+const getAllResources = (userId) => {
+  const searchString = {
+    text: `
     SELECT
     resources.id as id,
     resources.owner_id as user_id,
@@ -12,13 +13,17 @@ const getAllResources = () => {
     categories.category_name as category_name,
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
-    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
+    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating,
+    EXISTS (SELECT 1 FROM likes WHERE likes.resource_id = resources.id AND likes.user_id =$1) AS liked
     FROM resources
     JOIN categories ON resources.category_id = categories.id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN likes ON likes.resource_id = resources.id
     LEFT JOIN ratings ON ratings.resource_id = resources.id
-    GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name;`)
+    GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name`,
+    values: [userId]
+  };
+  return db.query(searchString)
     .then(data => {
       return data.rows;
     });
@@ -37,7 +42,8 @@ const getMyResources = (id) => {
     categories.category_name as category_name,
     (SELECT COUNT(comments.id) FROM comments WHERE comments.id IS NOT NULL AND resources.id = comments.resource_id) AS number_of_comments,
     (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
-    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
+    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating,
+    EXISTS (SELECT 1 FROM likes WHERE likes.resource_id = resources.id AND likes.user_id =$1) AS liked
     FROM resources
     JOIN categories ON resources.category_id = categories.id
     LEFT JOIN comments ON comments.resource_id = resources.id
@@ -125,7 +131,7 @@ const searchBarResources = (searchWord) => {
     });
 };
 
-const getResourceDetails = (id) => {
+const getResourceDetails = (id, userId) => {
   const queryString = {
     text: `SELECT
     resources.id AS id,
@@ -139,7 +145,8 @@ const getResourceDetails = (id) => {
     comments.comment_text AS comments,
     (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating,
     ARRAY_AGG(comments.comment_text) AS comments,
-    ARRAY_AGG(user_profiles.profile_picture) AS profile_comment
+    ARRAY_AGG(user_profiles.profile_picture) AS profile_comment,
+    EXISTS (SELECT 1 FROM likes WHERE likes.resource_id = resources.id AND likes.user_id =$2) AS liked
     FROM resources
     JOIN categories ON resources.category_id = categories.id
     JOIN users ON users.id = resources.owner_id
@@ -152,7 +159,7 @@ const getResourceDetails = (id) => {
     ) AS user_profiles ON user_profiles.user_id = comments.user_id
     WHERE resources.id = $1
     GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name, comments.comment_text, users.profile_picture;`,
-    values: [id]
+    values: [id, userId]
   };
   return db.query(queryString)
     .then(data => {

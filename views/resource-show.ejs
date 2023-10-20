@@ -50,14 +50,14 @@
 
       <div class="right-section">
 
-        <form id="commentForm" action="/resources/<%= id %>/comment" method="POST">
+        <form id="commentForm" action="/resources/<%= resourceId %>/comment" method="POST">
           <label for="comment"></label>
           <textarea id="comment" name="comment" placeholder="Enter your comments here..." required></textarea>
           <button type="submit">Add Comment</button>
         </form>
 
         <div class="rating-like-form">
-          <form id="ratingForm" class="dropdown-menu" action="/resources/<%= id %>/rating" method="POST">
+          <form id="ratingForm" class="dropdown-menu" action="/resources/<%= resourceId %>/rating" method="POST">
 
             <select id="rating-select" name="rating" class="rating">
               <option value="" disabled selected>Choose Rating</option>
@@ -73,9 +73,37 @@
               type="submit">Add Rating</button>
           </form>
 
-          <form id="likeForm" action="/api/likes?resourceId=<%= id %>" method="POST">
-
-          </form>
+          <% if (resource[0].liked ) { %>
+            <form
+              id="likeForm"
+              action="/resources/<%= resource[0].id %>/unlike"
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="heart-button"
+                id="heartButton"
+                style="color: <%= resource[0].liked ? 'red' : 'white' %>"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </form>
+            <% } else { %>
+            <form
+              id="likeForm"
+              action="/resources/<%= resource[0].id %>/like"
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="heart-button"
+                id="heartButton"
+                style="color: <%= resource[0].liked ? 'red' : 'white' %>"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </form>
+            <% } %>
         </div>
 
 
@@ -97,9 +125,9 @@
                 </p>
               </li> </br>
               <% } %>
-                <% } else { %>
-                  <li>No Comments</li>
-                  <% } %>
+          <% } else { %>
+              <li>No Comments</li>
+          <% } %>
         </ul>
       </div>
     </main>
