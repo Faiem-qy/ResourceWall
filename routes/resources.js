@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllResources, getResourceDetails, insertNewResource, searchBarResources, updateResource, insertRating, addComment } = require('../db/queries/resources');
+const { getAllResources, getResourceDetails, insertNewResource, searchBarResources, updateResource, insertRating, addComment, increaseLikes, decreaseLikes } = require('../db/queries/resources');
 const router = express.Router();
 
 //resources/new - Show New resource Page
@@ -43,7 +43,7 @@ router.get('/:id/edit', (req, res) => {
 
       const templateVars = {
         resourceId,
-        resource:resource[0],
+        resource: resource[0],
         userId
       };
       res.render("resource-edit", templateVars);
@@ -58,7 +58,7 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   const userId = req.session.user_id;
-  
+
   getResourceDetails(id)
     .then(resource => {
       console.log(resource);
@@ -96,14 +96,47 @@ router.get('/', (req, res) => {
 
 // ----POST-----
 
+// POST - Unlike
+router.post('/:id/unlike', (req, res) => {
+  const userId = req.session.user_id;
+  const resourceId = req.params.id;
+
+  decreaseLikes(userId, resourceId)
+    .then(unlike => {
+      console.log("UNLIKKE*****", unlike);
+      res.redirect(`/users/${userId}/my-resources`);
+    })
+    .catch(err => {
+      console.log({ error: err.message });
+    });
+});
+
+// POST - Like
+router.post('/:id/like', (req, res) => {
+  const userId = req.session.user_id;
+  const resourceId = req.params.id;
+
+  increaseLikes(userId, resourceId)
+    .then(like => {
+      console.log("LIKKE*****", like);
+      res.redirect(`/users/${userId}/my-resources`);
+    })
+    .catch(err => {
+      console.log({ error: err.message });
+    });
+});
+
+
+
+
 // Post to /resources/:id/comment
 router.post('/:id/comment', (req, res) => {
   const resourceId = req.params.id;
   const commentText = req.body.comment;
   const userId = req.session.user_id;
-  console.log(commentText)
+  console.log(commentText);
 
-  addComment(userId,commentText, resourceId)
+  addComment(userId, commentText, resourceId)
     .then(resource => {
       res.redirect(`/resources/${resourceId}`);
     })
