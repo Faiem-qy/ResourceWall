@@ -27,7 +27,9 @@
         name="description"
         placeholder="Resource Description"
         required
+
       >
+      <%= resource.description %>
       </textarea
       ><br />
       <label class="resource-header" for="resource_url">URL:</label>
@@ -38,6 +40,7 @@
         name="url"
         placeholder="Resource URL"
         required
+        value="<%= resource.url %>"
       /><br />
       <label class="resource-header" for="thumbnail_url">Image URL:</label>
       <input
@@ -47,6 +50,7 @@
         name="thumbnail_img"
         placeholder="Image URL"
         required
+        value="<%= resource.thumbnail %>"
       /><br />
       <label class="resource-header" for="category_id"
         >Choose a Category:</label

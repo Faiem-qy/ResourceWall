@@ -40,7 +40,7 @@ router.get('/:id/edit', (req, res) => {
 
   getResourceDetails(resourceId)
     .then(resource => {
-
+console.log(resource[0]);
       const templateVars = {
         resourceId,
         resource: resource[0],
