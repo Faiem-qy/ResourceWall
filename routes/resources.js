@@ -43,10 +43,9 @@ router.get('/:id/edit', (req, res) => {
 
       const templateVars = {
         resourceId,
-        resource,
+        resource:resource[0],
         userId
       };
-
       res.render("resource-edit", templateVars);
     })
     .catch(err => {
@@ -59,11 +58,12 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   const userId = req.session.user_id;
-
+  
   getResourceDetails(id)
     .then(resource => {
+      console.log(resource);
       const templateVars = {
-        resource: resource[0],
+        resource,
         userId,
         id
       };
@@ -95,6 +95,22 @@ router.get('/', (req, res) => {
 });
 
 // ----POST-----
+
+// Post to /resources/:id/comment
+router.post('/:id/comment', (req, res) => {
+  const resourceId = req.params.id;
+  const commentText = req.body.comment;
+  const userId = req.session.user_id;
+  console.log(commentText)
+
+  addComment(userId,commentText, resourceId)
+    .then(resource => {
+      res.redirect(`/resources/${resourceId}`);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 //resources/:id/rating - Edit rating
 router.post('/:id/rating', (req, res) => {

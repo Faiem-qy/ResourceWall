@@ -12,3 +12,4 @@ INSERT INTO ratings (user_id, resource_id, rating) VALUES (1, 2, 3);
 INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 4, 4);
 INSERT INTO ratings (user_id, resource_id, rating) VALUES (2, 3, 5);
 INSERT INTO ratings (user_id, resource_id, rating) VALUES (4, 1, 3);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (6, 7, 2);

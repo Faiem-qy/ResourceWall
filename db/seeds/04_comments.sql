@@ -1,12 +1,12 @@
 
 -- comments
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (1, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo.', 1);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (2, 'Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 2);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (3, 'Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.', 3);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (4, 'Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.', 4);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (5, 'In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.', 5);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (6, 'Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 6);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (1, 'Duis bibendum. Morbi non quam nec dui luctus rutrum.', 1);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (2, 'Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 2);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (3, 'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.', 3);
-INSERT INTO comments (user_id, comment_text, resource_id) VALUES (4, 'Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.', 4);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (1, 'I used to play piano by ear, but now I use my hands.', 2);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (3, 'How do you comfort a JavaScript bug? You console it.', 4);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (5, 'I told my wife she was drawing her eyebrows too high. She looked surprised.', 6);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (6, 'I''m reading a book on anti-gravity. It''s impossible to put down.', 5);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (4, 'Did you hear about the cheese factory that exploded? There was nothing left but de-brie.', 3);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (2, 'If you see a crime at an Apple Store, does that make you an iWitness?', 1);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (5, 'Why don''t programmers like nature? It has too many bugs.', 1);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (3, 'An SQL query walks into a bar, walks up to two tables, and asks, "Can I join you?"', 2);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (4, 'How many programmers does it take to change a light bulb? None, that''s a hardware problem.', 1);
+INSERT INTO comments (user_id, comment_text, resource_id) VALUES (6, 'How can 2 tablespoons of Nutella contain 6 teaspoons of sugar?', 7);
