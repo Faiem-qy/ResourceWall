@@ -135,15 +135,21 @@ const getResourceDetails = (id) => {
     resources.thumbnail_img AS thumbnail,
     resources.url As url,
     categories.category_name AS category_name,
-    comments.comment_text AS comment_text,
     users.profile_picture AS profile_picture,
-    (SELECT COUNT(likes.id) FROM likes WHERE likes.resource_id = resources.id) AS likes,
-    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating
+    comments.comment_text AS comments,
+    (SELECT ROUND(AVG(ratings.rating)) FROM ratings WHERE ratings.resource_id = resources.id) as avg_rating,
+    ARRAY_AGG(comments.comment_text) AS comments,
+    ARRAY_AGG(user_profiles.profile_picture) AS profile_comment
     FROM resources 
     JOIN categories ON resources.category_id = categories.id
     JOIN users ON users.id = resources.owner_id
     LEFT JOIN comments ON comments.resource_id = resources.id
     LEFT JOIN ratings ON ratings.resource_id = resources.id
+    LEFT JOIN (
+      SELECT DISTINCT ON (user_id) comments.user_id, users.profile_picture
+      FROM comments
+      JOIN users ON users.id = comments.user_id
+    ) AS user_profiles ON user_profiles.user_id = comments.user_id
     WHERE resources.id = $1
     GROUP BY resources.id, resources.owner_id, resources.title, resources.description, resources.thumbnail_img, resources.url, categories.category_name, comments.comment_text, users.profile_picture;`,
     values: [id]
@@ -187,6 +193,22 @@ const insertRating = (userId, resourceId, rating)=>{
   });
 }
 
+const addComment = (userId, commentText, resourceId) => {
+  const queryString = {
+    text: `
+    INSERT INTO comments (user_id, comment_text, resource_id)
+    VALUES($1, $2, $3)
+    RETURNING *;`,
+    values: [userId, commentText, resourceId]
+  };
+  return db.query(queryString)
+  .then(data => {
+      console.log(data)
+      const row = data.rows[data.rows.length-1]
+      return data.rows;
+    });
+};
+
 
 module.exports = {
   getAllResources,
@@ -196,5 +218,6 @@ module.exports = {
   getResourceDetails,
   searchBarResources,
   updateResource,
-  insertRating
+  insertRating,
+  addComment
 };

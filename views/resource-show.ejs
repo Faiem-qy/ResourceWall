@@ -14,33 +14,33 @@
   <%- include('partials/_header.ejs') %>
       <main class="resource-page">
         <div class="left-section">
-          <img src="<%= resource.thumbnail %>" alt="Resource Image"/>
+          <img src="<%= resource[0].thumbnail %>" alt="Resource Image"/>
           <h1 class="resource-title">
-            <%= resource.title %>
+            <%= resource[0].title %>
           </h1>
           <p class="resource-category">
-            <%= resource.category_name %>
+            <%= resource[0].category_name %>
           </p>
           <p class="resource-description">
-            <%= resource.description %>
+            <%= resource[0].description %>
           </p>
           <div class="button-date">
             <button class="visit-button">
-              <a target="_blank" href="<%= resource.url %>">Visit</a>
+              <a target="_blank" href="<%= resource[0].url %>">Visit</a>
             </button>
 
           </div>
           <div class="rating-category">
-            <% if (resource.avg_rating) { %>
-              <% if (resource.avg_rating==='5' ) { %>
+            <% if (resource[0].avg_rating) { %>
+              <% if (resource[0].avg_rating==='5' ) { %>
                 <%- include("../public/docs/5 stars.svg") %>
-              <% } else if (resource.avg_rating==='4' ) { %>
+              <% } else if (resource[0].avg_rating==='4' ) { %>
                 <%- include("../public/docs/4 stars.svg") %>
-              <% } else if (resource.avg_rating==='3' ) { %>
+              <% } else if (resource[0].avg_rating==='3' ) { %>
                 <%- include("../public/docs/3 stars.svg") %>
-              <% } else if (resource.avg_rating==='2' ) { %>
+              <% } else if (resource[0].avg_rating==='2' ) { %>
                   <%- include("../public/docs/2 stars.svg") %>
-              <% } else if (resource.avg_rating==='1' ) { %>
+              <% } else if (resource[0].avg_rating==='1' ) { %>
                   <%- include("../public/docs/1 star.svg") %>
               <% }
               } else { %>
@@ -51,7 +51,7 @@
 
         <div class="right-section">
           
-          <form id="commentForm" action="/api/comments?resourceId=<%= id %>" method="POST">
+          <form id="commentForm" action="/resources/<%= id %>/comment" method="POST">
             <label for="comment"></label>
             <textarea id="comment" name="comment" placeholder="Enter your comments here..." required></textarea>
             <button type="submit">Add Comment</button>
@@ -61,7 +61,7 @@
             <form id="ratingForm" class="dropdown-menu" action="/resources/<%= id %>/rating"
               method="POST">
 
-              <select name="rating" class="rating">
+              <select id="rating-select" name="rating" class="rating">
                 <option value="" disabled selected>Choose Rating</option>
                 <option value="5" class="rating-option">5 ⭐⭐⭐⭐⭐ </option>
                 <option value="4" class="rating-option">4 ⭐⭐⭐⭐</option>
@@ -70,7 +70,7 @@
                 <option value="1" class="rating-option">1 ⭐</option>
               </select>
 
-              <button type="submit">Add Rating</button>
+              <button onClick="if(document.querySelector('#rating-select').value.length != 0) return true; else return false" type="submit">Add Rating</button>
             </form>
 
             <form id="likeForm" action="/api/likes?resourceId=<%= id %>" method="POST">
@@ -78,26 +78,28 @@
           </div>
 
           <p id="ratings">Your rating is <span class="rating-strong">
-              <%= resource.avg_rating %>
+              <%= resource[0].avg_rating %>
             </span> for <span class="rating-strong">
-              <%= resource.title %>
+              <%= resource[0].title %>
             </span>
           </p>
 
           <ul class="comments-container">
-              <% if (resource.comment_text) { %>
-                <li class="comment-container">
-                  <img src="<%= resource.profile_picture %>" class="user-image" alt="User Image" style="height: 60px; width: 60px;">
-                  <p>
-                    <%= resource.comment_text %>
-                  </p>
-                </li>
-              <% } else { %>
-                <li>No Comments</li>
-              <% } %>
+        <% if (resource[0].comments && resource[0].comments.length > 0) { %> <%
+        for (const obj of resource) { %>
+        <li class="comment-container">
+          <img
+            src="<%= obj.profile_comment[0] %>"
+            class="user-image"
+            alt="User Image"
+            style="height: 60px; width: 55px"
+          />
+          <p><%= obj.comments[0] %></p>
+        </li> </br>
+        <% } %> <% } else { %>
+        <li>No Comments</li>
+        <% } %>
           </ul>
-
-
         </div>
       </main>
 </body>
