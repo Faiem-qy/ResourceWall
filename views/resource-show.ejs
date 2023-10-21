@@ -115,20 +115,22 @@
           </span>
         </p>
 
-        <ul class="comments-container">
-          <% if (resource[0].comments && resource[0].comments.length> 0) { %> <% for (const obj of resource) { %>
+        <% if (resource[0].comments && resource[0].comments.length> 0 && resource[0].comments[0] !== null) { %> 
+          <% for (const obj of resource) { %>
+            <ul class="comments-container">
               <li class="comment-container">
                 <img src="<%= obj.profile_comment[0] %>" class="user-image" alt="User Image"
                   style="height: 60px; width: 55px" />
                 <p>
                   <%= obj.comments[0] %>
                 </p>
-              </li> </br>
-              <% } %>
-          <% } else { %>
-              <li>No Comments</li>
+              </li> 
+              </br>
           <% } %>
-        </ul>
+        <% } else { %>
+            <li>No Comments Yet !</li>
+          </ul>
+        <% } %>
       </div>
     </main>
 </body>

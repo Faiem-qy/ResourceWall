@@ -61,6 +61,7 @@ router.get('/:id', (req, res) => {
 
   getResourceDetails(resourceId, userId)
     .then(resource => {
+      console.log(resource)
       const templateVars = {
         resource,
         userId,
